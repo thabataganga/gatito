@@ -13,3 +13,8 @@ class Serializador {
         }
     }
 }
+
+module.exports = {
+    Serializador: Serializador,
+    formatosAceitos: ['application/json']
+}
