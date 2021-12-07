@@ -21,6 +21,7 @@ roteador.post('/', async(req, res) => {
             JSON.stringify(fornecedor)
         )
     } catch (erro) {
+        res.status(400)
         res.send(
             JSON.stringify({
                 erro: erro.message
@@ -39,6 +40,7 @@ roteador.get('/:idFornecedor', async(req, res) => {
             JSON.stringify(fornecedor)
         )
     } catch (erro) {
+        res.status(404)
         res.send(
             JSON.stringify({
                 mensagem: erro.message
@@ -57,6 +59,7 @@ roteador.put('/:idFornecedor', async(req, res) => {
         res.status(204)
         res.end()
     } catch (erro) {
+        res.status(400)
         res.send(
             JSON.stringify({
                 mensagem: erro.message
@@ -74,6 +77,7 @@ roteador.delete('/:idFornecedor', async(req, res) => {
         res.status(204)
         res.end()
     } catch (erro) {
+        res.status(404)
         res.send(
             JSON.stringify({
                 mensagem: erro.message
