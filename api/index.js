@@ -12,6 +12,7 @@ const SerializadorErro = require('./Serializador').SerializadorErro
 /// Utilizacao do Bodyparser para trabalhar com JSON
 app.use(bodyParser.json())
 
+// Verifica o tipo de arquivo
 app.use((req, res, proximo) => {
     let formatoRequisitado = req.header('Accept')
 
@@ -28,7 +29,15 @@ app.use((req, res, proximo) => {
     proximo()
 })
 
-// Declarar a primeira requisicao
+
+// Altera o Autor da API
+
+app.use((requisicao, resposta, proximo) => {
+    resposta.set('X-Powered-By', 'Gatito Petshop')
+    proximo()
+})
+
+// Declara as rotas
 const roteador = require('./rotas/fornecedores')
 app.use('/api/fornecedores', roteador)
 
