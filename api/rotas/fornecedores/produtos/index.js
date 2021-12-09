@@ -1,6 +1,7 @@
 const roteador = require('express').Router({ mergeParams: true })
 const Tabela = require('./TabelaProduto')
 const Produto = require('./Produto')
+const req = require('express/lib/request')
 
 roteador.get('/', async(req, res) => {
     const produtos = await Tabela.listar(req.fornecedor.id)
@@ -33,6 +34,23 @@ roteador.delete('/:id', async(req, res) => {
     await produto.apagar()
     res.status(204)
     res.end()
+})
+
+roteador.get('/:id', async(req, res, proximo) => {
+    try {
+        const dados = {
+            id: req.params.id,
+            fornecedor: req.fornecedor.id
+        }
+
+        const produto = new Produto(dados)
+        await produto.carregar()
+        res.send(
+            JSON.stringify(produto)
+        )
+    } catch (erro) {
+        proximo(erro)
+    }
 })
 
 module.exports = roteador
