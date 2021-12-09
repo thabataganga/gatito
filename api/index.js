@@ -29,9 +29,7 @@ app.use((req, res, proximo) => {
     proximo()
 })
 
-
 // Altera o Autor da API
-
 app.use((requisicao, resposta, proximo) => {
     resposta.set('X-Powered-By', 'Gatito Petshop')
     proximo()
